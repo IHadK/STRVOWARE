@@ -57,7 +57,7 @@ local mouse          = localPlayer:GetMouse()
 local strvo           = game:GetObjects("rbxassetid://12705540680")[1]
 strvo.bg.Position     = UDim2.new(0.5,-strvo.bg.Size.X.Offset/2,0.5,-strvo.bg.Size.Y.Offset/2)
 strvo.Parent          = game:GetService("CoreGui")
-strvo.bg.pre.Text = '<font color="#FFFFFF">strvoware - Version 1.8</font>'
+strvo.bg.pre.Text = '<font color="#FFFFFF">strvoware - Version 1.9.74</font>'
 
 local library = {cheatname = "";ext = "";gamename = "";colorpicking = false;tabbuttons = {};tabs = {};options = {};flags = {};scrolling = false;notifyText = Drawing.new("Text");playing = false;multiZindex = 200;toInvis = {};libColor = Color3.fromRGB(69, 23, 255);disabledcolor = Color3.fromRGB(233, 0, 0);blacklisted = {Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.UserInputType.MouseMovement}}
 
